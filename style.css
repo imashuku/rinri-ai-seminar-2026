@@ -1,0 +1,533 @@
+/* Design System - Variables */
+:root {
+  /* Colors */
+  --c-primary: #1e40af; /* 深い青/Navy */
+  --c-primary-light: #3b82f6;
+  --c-secondary: #0ea5e9; /* チラシ水色に近いシアン */
+  --c-secondary-light: #e0f2fe;
+  --c-bg: #ffffff;
+  --c-bg-light: #f8fafc;
+  --c-bg-accent: #f1f5f9;
+  --c-text-main: #1e293b;
+  --c-text-muted: #64748b;
+  --c-border: #e2e8f0;
+
+  /* Typography */
+  --f-sans:
+    "Inter", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --f-serif:
+    "Noto Serif JP", "Yu Mincho", "MS PMincho", "Hiragino Mincho ProN", serif;
+
+  /* Layout */
+  --container-width: 1000px;
+  --container-sm-width: 760px;
+  --spacing-section: 80px;
+  --spacing-section-sm: 60px;
+}
+
+/* Reset & BaseStyles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--f-sans);
+  color: var(--c-text-main);
+  background-color: var(--c-bg);
+  line-height: 1.6;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--c-primary);
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+/* Utility Classes */
+.container {
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+.container-sm {
+  max-width: var(--container-sm-width);
+}
+.text-center {
+  text-align: center;
+}
+.bg-light {
+  background-color: var(--c-bg-light);
+}
+.bg-primary {
+  background-color: var(--c-primary);
+  color: #fff;
+}
+.color-white {
+  color: #fff !important;
+}
+.sp-only {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  .sp-only {
+    display: inline;
+  }
+}
+
+/* Section Common */
+section {
+  padding: var(--spacing-section) 0;
+}
+.section-title {
+  font-family: var(--f-serif);
+  font-size: 2.2rem;
+  line-height: 1.4;
+  margin-bottom: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+}
+.title-en {
+  display: block;
+  font-family: var(--f-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  color: var(--c-secondary);
+  margin-top: 0.5rem;
+}
+
+/* Animations */
+.fade-in {
+  opacity: 0;
+  transform: translateY(20px);
+  transition:
+    opacity 0.8s ease-out,
+    transform 0.8s ease-out;
+}
+.fade-in.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem 3rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  letter-spacing: 0.05em;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--c-primary), var(--c-secondary));
+  color: white;
+  box-shadow: 0 4px 15px rgba(14, 165, 233, 0.3);
+}
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(14, 165, 233, 0.4);
+}
+.btn-cta {
+  background-color: white;
+  color: var(--c-primary);
+  font-size: 1.2rem;
+  padding: 1.2rem 4rem;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+.btn-cta:hover {
+  /* color: var(--c-primary); */
+  transform: translateY(-2px);
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
+}
+
+/* Hero Section */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  background-color: var(--c-secondary-light);
+  overflow: hidden;
+}
+
+.hero-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f8fafc 0%, #e0f2fe 100%);
+  z-index: 0;
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.hero-content {
+  max-width: 650px;
+  padding: 4rem 0;
+  flex: 1;
+}
+
+
+
+.series-badge {
+  display: inline-block;
+  background-color: var(--c-text-muted);
+  color: white;
+  font-size: 0.9rem;
+  padding: 0.3rem 1.5rem;
+  border-left: 3px solid #b4a87f; /* From flyer top-left */
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+}
+
+.hero-title {
+  font-family: var(--f-serif);
+  font-size: 4rem;
+  line-height: 1.1;
+  color: var(--c-primary);
+  margin-bottom: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+}
+
+.hero-title .times {
+  font-family: var(--f-sans);
+  color: var(--c-text-muted);
+  font-size: 3rem;
+  vertical-align: middle;
+}
+
+.hero-title .title-sub {
+  font-size: 2.5rem;
+  color: var(--c-text-main);
+}
+
+.hero-subtitle {
+  font-family: var(--f-serif);
+  font-size: 1.6rem;
+  font-weight: 500;
+  line-height: 1.5;
+  color: var(--c-text-main);
+  margin-bottom: 3rem;
+}
+
+.hero-subtitle .highlight {
+  font-size: 2.2rem;
+  color: var(--c-primary);
+  display: inline-block;
+  margin-top: 0.5rem;
+}
+
+.hero-info {
+  margin-bottom: 3rem;
+  border-left: 2px solid var(--c-secondary);
+  padding-left: 1.5rem;
+  background: rgba(255, 255, 255, 0.7);
+  padding: 1.5rem;
+  backdrop-filter: blur(10px);
+  border-radius: 0 8px 8px 0;
+}
+
+.hero-info .date {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--c-primary);
+  line-height: 1.1;
+  margin-bottom: 0.5rem;
+  font-family: var(--f-sans);
+}
+
+.hero-info .date span {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.hero-info .location {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+/* Message Section */
+.message-section {
+  padding: var(--spacing-section) 0;
+}
+
+.message-body {
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.philosophy-quote {
+  font-family: var(--f-serif);
+  font-size: 1.8rem;
+  color: var(--c-primary);
+  text-align: center;
+  margin: 3rem 0;
+  line-height: 1.6;
+}
+
+/* Concept Section (倫理AI実践士) */
+.concept-section {
+  padding: var(--spacing-section-sm) 0;
+}
+
+.concept-box {
+  background-color: #fff;
+  border: 1px solid var(--c-border);
+  border-top: 3px solid var(--c-primary);
+  padding: 3rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+  position: relative;
+}
+
+.concept-title {
+  font-family: var(--f-serif);
+  font-size: 1.4rem;
+  color: var(--c-primary);
+  text-align: center;
+  margin-bottom: 1.5rem;
+  letter-spacing: 0.1em;
+}
+
+.concept-box p {
+  text-align: center;
+  font-size: 1.05rem;
+  margin-bottom: 1rem;
+}
+
+.concept-footer {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--c-bg-accent);
+}
+
+.concept-footer p {
+  font-size: 1.15rem;
+  color: var(--c-primary);
+  margin-bottom: 0;
+}
+
+/* Speakers Section */
+.speaker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3rem;
+  margin-top: 3rem;
+}
+
+.speaker-card {
+  display: flex;
+  flex-direction: column;
+}
+
+.speaker-image {
+  width: 100%;
+  aspect-ratio: 4/3;
+  margin-bottom: 1.5rem;
+  border-bottom: 4px solid var(--c-secondary);
+  overflow: hidden;
+  background-color: var(--c-bg-accent);
+}
+
+.image-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--c-text-muted);
+  font-family: var(--f-serif);
+}
+
+.speaker-info .company {
+  font-size: 0.9rem;
+  color: var(--c-primary);
+  font-weight: 600;
+  margin-bottom: 0.2rem;
+}
+
+.speaker-info .name {
+  font-family: var(--f-serif);
+  font-size: 1.8rem;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+}
+
+.speaker-info .name-en {
+  font-family: var(--f-sans);
+  font-size: 0.9rem;
+  color: var(--c-text-muted);
+  font-weight: 400;
+}
+
+.speaker-info .credential {
+  display: inline-block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--c-primary);
+  background-color: var(--c-secondary-light);
+  padding: 0.3rem 1rem;
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  letter-spacing: 0.05em;
+}
+
+.speaker-info .profile {
+  font-size: 0.95rem;
+  color: var(--c-text-main);
+  line-height: 1.7;
+}
+
+/* Event Details Section */
+.event-section {
+  padding: calc(var(--spacing-section) * 1.5) 0;
+}
+
+.event-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  padding: 3rem;
+}
+
+.event-details {
+  display: grid;
+  grid-template-columns: 100px 1fr;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
+}
+
+.event-details dt {
+  color: var(--c-secondary-light);
+  font-size: 1.1rem;
+  font-weight: 600;
+  padding-top: 0.2rem;
+  border-right: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.event-details dd {
+  color: #fff;
+  font-size: 1.1rem;
+}
+
+.event-details dd .large-date {
+  font-size: 1.8rem;
+  font-weight: 700;
+  font-family: var(--f-sans);
+}
+
+.event-details dd .note {
+  font-size: 0.85rem;
+  opacity: 0.8;
+}
+
+.cta-action {
+  text-align: center;
+  padding-top: 3rem;
+  border-top: 1px dashed rgba(255, 255, 255, 0.3);
+}
+
+.cta-message {
+  margin-bottom: 1.5rem;
+  font-size: 1.1rem;
+  color: #fff;
+}
+
+.qr-box {
+  margin: 1.5rem auto 0;
+  width: 140px;
+  background-color: #fff;
+  padding: 10px;
+  border-radius: 8px;
+}
+.qr-box img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+/* Footer */
+.footer {
+  background-color: #0f172a;
+  color: rgba(255, 255, 255, 0.6);
+  padding: 2rem 0;
+  font-size: 0.9rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    --spacing-section: 60px;
+  }
+
+  .hero-title {
+    font-size: 2.8rem;
+  }
+  .hero-title .title-sub {
+    font-size: 1.8rem;
+  }
+  .hero-title .times {
+    font-size: 2rem;
+  }
+  .hero-subtitle {
+    font-size: 1.2rem;
+  }
+  .hero-subtitle .highlight {
+    font-size: 1.6rem;
+  }
+
+  .hero-info .date {
+    font-size: 2rem;
+  }
+
+  .section-title {
+    font-size: 1.8rem;
+  }
+  .philosophy-quote {
+    font-size: 1.5rem;
+  }
+
+  .speaker-grid {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+
+  .event-card {
+    padding: 2rem 1.5rem;
+  }
+  .event-details {
+    grid-template-columns: 80px 1fr;
+    gap: 1rem;
+  }
+  .event-details dd .large-date {
+    font-size: 1.4rem;
+  }
+}
