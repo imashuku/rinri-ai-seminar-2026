@@ -192,8 +192,6 @@ section {
   flex: 1;
 }
 
-
-
 .series-badge {
   display: inline-block;
   background-color: var(--c-text-muted);
@@ -369,7 +367,24 @@ section {
   font-size: 0.9rem;
   color: var(--c-primary);
   font-weight: 600;
-  margin-bottom: 0.2rem;
+  margin-bottom: 0.1rem;
+}
+
+/* 会社での肩書き（｜代表社員 など） */
+.speaker-info .company .company-title {
+  font-size: 0.8rem;
+  color: var(--c-text-muted);
+  font-weight: 500;
+  margin-left: 0.2em;
+}
+
+/* 倫理法人会の役職名 */
+.speaker-info .role {
+  font-size: 0.85rem;
+  color: var(--c-text-muted);
+  font-weight: 500;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.03em;
 }
 
 .speaker-info .name {
@@ -423,13 +438,13 @@ section {
   grid-template-columns: 100px 1fr;
   gap: 1.5rem;
   margin-bottom: 3rem;
+  align-items: start; /* dtとddの先頭を上端で揃える */
 }
 
 .event-details dt {
   color: var(--c-secondary-light);
   font-size: 1.1rem;
   font-weight: 600;
-  padding-top: 0.2rem;
   border-right: 1px solid rgba(255, 255, 255, 0.3);
 }
 
@@ -442,6 +457,7 @@ section {
   font-size: 1.8rem;
   font-weight: 700;
   font-family: var(--f-sans);
+  line-height: 1; /* フォント内部の余白をなくし、dtと上端を揃える */
 }
 
 .event-details dd .note {
