@@ -49,6 +49,24 @@
             <p class="location">キラリエ草津 402号室</p>
           </div>
 
+          <!-- 申込状況カウンター（ヒーロー） -->
+          <div class="capacity-status">
+            <div class="capacity-main">
+              <div class="capacity-remain-block" id="capacity-remain-block-hero">
+                <span class="capacity-remain-label">残り席</span>
+                <strong class="capacity-remain-num" id="capacity-remain-num-hero">—</strong>
+                <span class="capacity-remain-denom">/ 50名</span>
+              </div>
+              <div class="capacity-proof-block">
+                <p class="capacity-proof-text" id="capacity-proof-hero"><span class="capacity-skeleton">&nbsp;</span></p>
+                <span class="capacity-badge capacity-badge--open" id="capacity-badge-hero">先着順・受付中</span>
+              </div>
+            </div>
+            <div class="capacity-bar-wrap">
+              <div class="capacity-bar" id="capacity-bar-hero"></div>
+            </div>
+          </div>
+
           <a href="https://forms.gle/Dx6dVoaMacGSWmhj7" target="_blank" rel="noopener noreferrer" class="btn btn-primary">参加を申し込む</a>
         </div>
       </div>
@@ -299,6 +317,23 @@
             <p class="cta-message">
               参加登録は下記ボタン、またはQRコードからお願いいたします。
             </p>
+            <!-- 申込状況カウンター（開催概要） -->
+            <div class="capacity-status capacity-status--dark">
+              <div class="capacity-main">
+                <div class="capacity-remain-block" id="capacity-remain-block-event">
+                  <span class="capacity-remain-label">残り席</span>
+                  <strong class="capacity-remain-num" id="capacity-remain-num-event">—</strong>
+                  <span class="capacity-remain-denom">/ 50名</span>
+                </div>
+                <div class="capacity-proof-block">
+                  <p class="capacity-proof-text" id="capacity-proof-event"><span class="capacity-skeleton">&nbsp;</span></p>
+                  <span class="capacity-badge capacity-badge--open" id="capacity-badge-event">先着順・受付中</span>
+                </div>
+              </div>
+              <div class="capacity-bar-wrap">
+                <div class="capacity-bar" id="capacity-bar-event"></div>
+              </div>
+            </div>
             <a href="https://forms.gle/Dx6dVoaMacGSWmhj7" target="_blank" rel="noopener noreferrer" class="btn btn-cta">参加登録はこちら</a>
             <div class="qr-box">
               <img src="images/qr_form.png" alt="参加登録QRコード">
@@ -339,6 +374,120 @@
     </footer>
 
     <script>
+      // 参加申込状況をGoogle Sheetsからリアルタイム取得
+      (async function fetchCapacity() {
+        const SHEET_ID = "1Ua84OLRsbnGSxjcudHNo5OxlgfZwC-7XeIOp0fbgsAM";
+        const TOTAL = 50;
+
+        // アンカリング：TOTAL(50) → 残り席数 へカウントダウンアニメーション
+        function animateCount(el, from, to) {
+          const reducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)"
+          ).matches;
+          if (reducedMotion) {
+            el.textContent = to;
+            return;
+          }
+          const duration = 1200;
+          const startTime = performance.now();
+          function tick(now) {
+            const t = Math.min((now - startTime) / duration, 1);
+            const eased = 1 - Math.pow(1 - t, 3); // ease-out cubic
+            el.textContent = Math.round(from + (to - from) * eased);
+            if (t < 1) requestAnimationFrame(tick);
+          }
+          requestAnimationFrame(tick);
+        }
+
+        try {
+          const res = await fetch(
+            `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json`
+          );
+          const text = await res.text();
+          const json = JSON.parse(
+            text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1)
+          );
+          // タイムスタンプ列に値があるレコードのみカウント
+          const count = json.table.rows.filter(
+            (row) => row.c && row.c[0] && row.c[0].v
+          ).length;
+          const remaining = Math.max(TOTAL - count, 0);
+          const pct = Math.min((count / TOTAL) * 100, 100).toFixed(1);
+
+          // ステータス判定（残席数に応じてバッジ・色が動的に変化）
+          let badgeClass, badgeText, numClass, blockClass;
+          if (remaining > 20) {
+            badgeClass = "capacity-badge--open";
+            badgeText = "先着順・受付中";
+            numClass = "";
+            blockClass = "";
+          } else if (remaining > 10) {
+            badgeClass = "capacity-badge--caution";
+            badgeText = "残り席わずかです";
+            numClass = "capacity-remain-num--caution";
+            blockClass = "capacity-remain-block--caution";
+          } else {
+            badgeClass = "capacity-badge--urgent";
+            badgeText = "残席わずか！お早めに";
+            numClass = "capacity-remain-num--urgent";
+            blockClass = "capacity-remain-block--urgent";
+          }
+
+          // 残り席数：50 → remaining へカウントダウン（アンカリング効果）
+          ["capacity-remain-num-hero", "capacity-remain-num-event"].forEach(
+            (id) => {
+              const el = document.getElementById(id);
+              if (el) {
+                if (numClass) el.classList.add(numClass);
+                animateCount(el, TOTAL, remaining);
+              }
+            }
+          );
+
+          // 外枠ボーダーの色変化
+          ["capacity-remain-block-hero", "capacity-remain-block-event"].forEach(
+            (id) => {
+              const el = document.getElementById(id);
+              if (el && blockClass) el.classList.add(blockClass);
+            }
+          );
+
+          // ソーシャルプルーフ（社会的証明）
+          ["capacity-proof-hero", "capacity-proof-event"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el)
+              el.innerHTML = `すでに <strong>${count}名</strong> の経営者が参加を決定しています`;
+          });
+
+          // 動的ステータスバッジ
+          ["capacity-badge-hero", "capacity-badge-event"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) {
+              el.className = `capacity-badge ${badgeClass}`;
+              el.textContent = badgeText;
+            }
+          });
+
+          // プログレスバー
+          ["capacity-bar-hero", "capacity-bar-event"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.style.width = pct + "%";
+          });
+        } catch (e) {
+          console.warn("申込状況の取得に失敗しました", e);
+          ["capacity-remain-num-hero", "capacity-remain-num-event"].forEach(
+            (id) => {
+              const el = document.getElementById(id);
+              if (el) el.textContent = "—";
+            }
+          );
+          ["capacity-proof-hero", "capacity-proof-event"].forEach((id) => {
+            const el = document.getElementById(id);
+            if (el) el.textContent = "先着50名・受付中";
+          });
+        }
+      })();
+
       // 簡単なフェードインアニメーション用スクリプト
       document.addEventListener("DOMContentLoaded", () => {
         const elements = document.querySelectorAll(".fade-in");
