@@ -407,10 +407,15 @@
           const json = JSON.parse(
             text.substring(text.indexOf("{"), text.lastIndexOf("}") + 1)
           );
-          // タイムスタンプ列に値があるレコードのみカウント
-          const count = json.table.rows.filter(
+          // タイムスタンプ列に値がある有効レコードを抽出し、氏名（列B）で重複排除
+          const validRows = json.table.rows.filter(
             (row) => row.c && row.c[0] && row.c[0].v
-          ).length;
+          );
+          const uniqueNames = new Set(
+            validRows.map((row) => (row.c[1] && row.c[1].v) ? row.c[1].v.toString().trim() : "")
+                     .filter((name) => name !== "")
+          );
+          const count = uniqueNames.size;
           const remaining = Math.max(TOTAL - count, 0);
           const pct = Math.min((count / TOTAL) * 100, 100).toFixed(1);
 
