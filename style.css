@@ -964,3 +964,42 @@ section {
     gap: 0.75rem;
   }
 }
+
+/* Sold Out Banner */
+.soldout-banner {
+  background: linear-gradient(135deg, #fef2f2, #fee2e2);
+  border: 2px solid #fca5a5;
+  border-radius: 12px;
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.soldout-badge {
+  display: inline-block;
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #fff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  padding: 0.4rem 1.8rem;
+  border-radius: 50px;
+  letter-spacing: 0.15em;
+  margin-bottom: 0.8rem;
+}
+.soldout-message {
+  font-size: 1rem;
+  color: #991b1b;
+  line-height: 1.7;
+  margin: 0;
+}
+/* Sold out notice in event details */
+.soldout-notice {
+  margin-bottom: 1.5rem;
+}
+.soldout-notice .soldout-badge {
+  margin-bottom: 0.6rem;
+}
+.soldout-notice p {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
