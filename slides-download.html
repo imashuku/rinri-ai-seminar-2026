@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>スライド資料ダウンロード | 倫理×AI実践セミナー</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Vercel Web Analytics -->
+    <script defer src="/_vercel/insights/script.js"></script>
+    <style>
+      :root {
+        --c-bg-dark: #0a0f1a;
+        --c-bg-card: #111827;
+        --c-bg-card-hover: #1a2332;
+        --c-accent: #00b4d8;
+        --c-accent-light: #90e0ef;
+        --c-accent-glow: rgba(0, 180, 216, 0.15);
+        --c-text: #f1f5f9;
+        --c-text-muted: #94a3b8;
+        --c-border: rgba(255, 255, 255, 0.08);
+      }
+
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Noto Sans JP", "Inter", -apple-system, BlinkMacSystemFont,
+          sans-serif;
+        background: var(--c-bg-dark);
+        color: var(--c-text);
+        line-height: 1.7;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .container {
+        max-width: 720px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+        width: 100%;
+      }
+
+      /* Hero */
+      .hero {
+        padding: 4rem 0 3rem;
+        text-align: center;
+        background: linear-gradient(
+          180deg,
+          rgba(0, 180, 216, 0.08) 0%,
+          transparent 100%
+        );
+      }
+
+      .hero-badge {
+        display: inline-block;
+        background: var(--c-accent-glow);
+        border: 1px solid rgba(0, 180, 216, 0.3);
+        color: var(--c-accent-light);
+        font-size: 0.8rem;
+        font-weight: 500;
+        padding: 0.35rem 1rem;
+        border-radius: 100px;
+        letter-spacing: 0.05em;
+        margin-bottom: 1.5rem;
+      }
+
+      .hero h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1.4;
+        margin-bottom: 0.75rem;
+      }
+
+      .hero h1 span {
+        color: var(--c-accent);
+      }
+
+      .hero-date {
+        color: var(--c-text-muted);
+        font-size: 0.9rem;
+      }
+
+      /* Greeting */
+      .greeting {
+        text-align: center;
+        padding: 1.5rem 0 2rem;
+        font-size: 1.05rem;
+        color: var(--c-text-muted);
+        line-height: 1.8;
+      }
+
+      .greeting strong {
+        color: var(--c-accent-light);
+        font-weight: 600;
+      }
+
+      /* Download Section */
+      .download-section {
+        padding: 1rem 0 3rem;
+      }
+
+      .section-label {
+        font-size: 0.8rem;
+        font-weight: 600;
+        color: var(--c-accent);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        margin-bottom: 1.25rem;
+      }
+
+      .download-card {
+        background: var(--c-bg-card);
+        border: 1px solid var(--c-border);
+        border-radius: 16px;
+        padding: 1.75rem;
+        margin-bottom: 1rem;
+        transition: all 0.25s ease;
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+        color: inherit;
+      }
+
+      .download-card:hover {
+        background: var(--c-bg-card-hover);
+        border-color: rgba(0, 180, 216, 0.3);
+        box-shadow: 0 0 30px var(--c-accent-glow);
+        transform: translateY(-2px);
+      }
+
+      .download-card-inner {
+        display: flex;
+        align-items: center;
+        gap: 1.25rem;
+      }
+
+      .download-icon {
+        flex-shrink: 0;
+        width: 52px;
+        height: 52px;
+        background: var(--c-accent-glow);
+        border: 1px solid rgba(0, 180, 216, 0.2);
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .download-icon svg {
+        width: 24px;
+        height: 24px;
+        color: var(--c-accent);
+      }
+
+      .download-info {
+        flex: 1;
+        min-width: 0;
+      }
+
+      .download-title {
+        font-size: 1.05rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+      }
+
+      .download-desc {
+        font-size: 0.85rem;
+        color: var(--c-text-muted);
+      }
+
+      .download-arrow {
+        flex-shrink: 0;
+        color: var(--c-text-muted);
+        transition: transform 0.25s ease;
+      }
+
+      .download-card:hover .download-arrow {
+        transform: translateX(4px);
+        color: var(--c-accent);
+      }
+
+      /* Divider */
+      .divider {
+        border: none;
+        border-top: 1px solid var(--c-border);
+        margin: 2rem 0;
+      }
+
+      /* Links Section */
+      .links-section {
+        padding: 0 0 3rem;
+      }
+
+      .links-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.75rem;
+      }
+
+      .link-card {
+        background: var(--c-bg-card);
+        border: 1px solid var(--c-border);
+        border-radius: 12px;
+        padding: 1.25rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.25s ease;
+        display: block;
+      }
+
+      .link-card:hover {
+        border-color: rgba(0, 180, 216, 0.3);
+        background: var(--c-bg-card-hover);
+      }
+
+      .link-card-label {
+        font-size: 0.75rem;
+        color: var(--c-accent);
+        font-weight: 500;
+        margin-bottom: 0.4rem;
+        letter-spacing: 0.02em;
+      }
+
+      .link-card-title {
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1.5;
+      }
+
+      .link-card-desc {
+        font-size: 0.78rem;
+        color: var(--c-text-muted);
+        margin-top: 0.3rem;
+        line-height: 1.5;
+      }
+
+      /* Footer */
+      .footer {
+        margin-top: auto;
+        padding: 2.5rem 0;
+        text-align: center;
+        border-top: 1px solid var(--c-border);
+        color: var(--c-text-muted);
+        font-size: 0.8rem;
+        line-height: 1.8;
+      }
+
+      .footer-name {
+        font-weight: 600;
+        color: var(--c-text);
+        font-size: 0.85rem;
+      }
+
+      /* Responsive */
+      @media (max-width: 600px) {
+        .hero {
+          padding: 3rem 0 2rem;
+        }
+        .hero h1 {
+          font-size: 1.4rem;
+        }
+        .links-grid {
+          grid-template-columns: 1fr;
+        }
+        .download-card {
+          padding: 1.25rem;
+        }
+        .download-icon {
+          width: 44px;
+          height: 44px;
+        }
+        .download-icon svg {
+          width: 20px;
+          height: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <section class="hero">
+      <div class="container">
+        <div class="hero-badge">2026/03/17 開催</div>
+        <h1><span>倫理×AI</span>実践セミナー<br />スライド資料</h1>
+        <p class="hero-date">草津市倫理法人会 モーニングセミナー</p>
+      </div>
+    </section>
+
+    <section class="greeting" id="greeting">
+      <div class="container">
+        <p>
+          セミナーへのご参加ありがとうございました。<br />
+          以下よりスライド資料をダウンロードいただけます。
+        </p>
+      </div>
+    </section>
+
+    <section class="download-section">
+      <div class="container">
+        <div class="section-label">Download</div>
+
+        <a
+          class="download-card"
+          href="lecture/倫理×AI実践セミナー_スライド資料.pdf"
+          download
+          data-file="セミナースライド資料"
+          onclick="trackDownload('セミナースライド資料', 'slide')"
+        >
+          <div class="download-card-inner">
+            <div class="download-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3.75 6A2.25 2.25 0 0 1 6 3.75h2.25a2.25 2.25 0 0 1 2.25 2.25v2.25a2.25 2.25 0 0 1-2.25 2.25H6a2.25 2.25 0 0 1-2.25-2.25V6ZM3.75 15.75A2.25 2.25 0 0 1 6 13.5h2.25a2.25 2.25 0 0 1 2.25 2.25V18a2.25 2.25 0 0 1-2.25 2.25H6A2.25 2.25 0 0 1 3.75 18v-2.25ZM13.5 6a2.25 2.25 0 0 1 2.25-2.25H18A2.25 2.25 0 0 1 20.25 6v2.25A2.25 2.25 0 0 1 18 10.5h-2.25a2.25 2.25 0 0 1-2.25-2.25V6ZM13.5 15.75a2.25 2.25 0 0 1 2.25-2.25H18a2.25 2.25 0 0 1 2.25 2.25V18A2.25 2.25 0 0 1 18 20.25h-2.25a2.25 2.25 0 0 1-2.25-2.25v-2.25Z"
+                />
+              </svg>
+            </div>
+            <div class="download-info">
+              <div class="download-title">セミナースライド資料</div>
+              <div class="download-desc">
+                当日の講演スライド全編（PDF）
+              </div>
+            </div>
+            <div class="download-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+            </div>
+          </div>
+        </a>
+
+        <a
+          class="download-card"
+          href="lecture/倫理×AI実践セミナー_ネクストステップ.pdf"
+          download
+          data-file="ネクストステップ資料"
+          onclick="trackDownload('ネクストステップ資料', 'nextstep')"
+        >
+          <div class="download-card-inner">
+            <div class="download-icon">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="1.5"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M15.59 14.37a6 6 0 0 1-5.84 7.38v-4.8m5.84-2.58a14.98 14.98 0 0 0 6.16-12.12A14.98 14.98 0 0 0 9.631 8.41m5.96 5.96a14.926 14.926 0 0 1-5.841 2.58m-.119-8.54a6 6 0 0 0-7.381 5.84h4.8m2.581-5.84a14.927 14.927 0 0 0-2.58 5.84m2.699 2.7c-.103.021-.207.041-.311.06a15.09 15.09 0 0 1-2.448-2.448 14.9 14.9 0 0 1 .06-.312m-2.24 2.39a4.493 4.493 0 0 0-1.757 4.306 4.493 4.493 0 0 0 4.306-1.758M16.5 9a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"
+                />
+              </svg>
+            </div>
+            <div class="download-info">
+              <div class="download-title">ネクストステップ資料</div>
+              <div class="download-desc">
+                セミナー後の実践ガイド（PDF）
+              </div>
+            </div>
+            <div class="download-arrow">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke-width="2"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  d="M3 16.5v2.25A2.25 2.25 0 0 0 5.25 21h13.5A2.25 2.25 0 0 0 21 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3"
+                />
+              </svg>
+            </div>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <div class="container"><hr class="divider" /></div>
+
+    <section class="links-section">
+      <div class="container">
+        <div class="section-label">Related Links</div>
+        <div class="links-grid">
+          <a
+            class="link-card"
+            href="https://www.step-out.jp/news/2026-03-19-rinri-ai-seminar-vol1-report"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-card-label">Blog</div>
+            <div class="link-card-title">セミナー開催レポート</div>
+            <div class="link-card-desc">当日の様子と参加者の声</div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://rinri-ai-seminar-2026.vercel.app/members.html"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-card-label">Members</div>
+            <div class="link-card-title">倫理AI実践士</div>
+            <div class="link-card-desc">認定メンバー一覧</div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://forms.gle/cTbix1sLpVNAmwW9A"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-card-label">Register</div>
+            <div class="link-card-title">実践士に登録する</div>
+            <div class="link-card-desc">倫理AI実践士への申込フォーム</div>
+          </a>
+
+          <a
+            class="link-card"
+            href="https://forms.gle/Jnyehp7oCDD9v4CaA"
+            target="_blank"
+            rel="noopener"
+          >
+            <div class="link-card-label">Next Event</div>
+            <div class="link-card-title">第2回お知らせ登録</div>
+            <div class="link-card-desc">次回セミナーの案内を受け取る</div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <div class="container">
+        <div class="footer-name">今宿 裕昭</div>
+        ステップアウトマーケティング合同会社
+      </div>
+    </footer>
+
+    <script>
+      // Get ref parameter
+      const params = new URLSearchParams(window.location.search);
+      const ref = params.get("ref");
+
+      // Personalized greeting
+      if (ref) {
+        const name = decodeURIComponent(ref);
+        const greetingEl = document.getElementById("greeting");
+        greetingEl.querySelector("p").innerHTML =
+          "<strong>" +
+          escapeHtml(name) +
+          " 様</strong>、セミナーへのご参加ありがとうございました。<br>以下よりスライド資料をダウンロードいただけます。";
+      }
+
+      // HTML escape helper
+      function escapeHtml(str) {
+        const div = document.createElement("div");
+        div.appendChild(document.createTextNode(str));
+        return div.innerHTML;
+      }
+
+      // Track download clicks via Vercel Analytics custom events
+      function trackDownload(fileName, fileId) {
+        if (window.va) {
+          window.va.track("download", {
+            ref: ref || "direct",
+            file: fileName,
+            fileId: fileId,
+          });
+        }
+      }
+
+      // Track page view with ref info (Vercel Analytics handles this automatically via URL params)
+      // The ?ref= parameter will be visible in Vercel Analytics dashboard under page views
+    </script>
+  </body>
+</html>
