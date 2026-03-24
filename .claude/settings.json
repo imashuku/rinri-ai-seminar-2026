@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(datescheck.sh 2026-03-17)",
+      "Bash(~/.local/bin/datecheck.sh 2026-03-17)",
+      "Bash(TZ=Asia/Tokyo date '+%Y/%m/%d\\(%a\\)')"
+    ]
+  }
+}

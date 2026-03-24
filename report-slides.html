@@ -1,0 +1,901 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>倫理×AI実践セミナー 報告書</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Noto Sans JP', Arial, sans-serif;
+    background: #e8e8e8;
+    color: #222;
+    overflow: hidden;
+    height: 100vh;
+    width: 100vw;
+  }
+
+  .slide-deck {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* ── Slide Frame ── */
+  .slide {
+    position: absolute;
+    width: min(95vw, 170vh);
+    height: min(53.4375vw, 95.625vh);
+    background: #fff;
+    display: none;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .slide.active { display: flex; }
+
+  /* ── 3-Layer Structure ── */
+
+  /* Layer 1: Action Title Area */
+  .action-title-area {
+    padding: 36px 52px 0 52px;
+    border-bottom: 1.5px solid #222;
+    padding-bottom: 14px;
+    min-height: 80px;
+  }
+
+  .action-title {
+    font-family: 'Noto Serif JP', Georgia, serif;
+    font-size: 24px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.5;
+    letter-spacing: 0.01em;
+  }
+
+  /* Layer 2: Body / Exhibit */
+  .body-area {
+    flex: 1;
+    padding: 24px 52px 0 52px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Layer 3: Source / Footer */
+  .source-area {
+    padding: 8px 52px 16px 52px;
+    font-size: 12px;
+    color: #999;
+    font-weight: 300;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    border-top: 0.5px solid #ddd;
+    margin: 0 52px;
+    padding: 8px 0 16px 0;
+  }
+
+  .page-num {
+    font-size: 12px;
+    color: #999;
+  }
+
+  /* ── Typography ── */
+
+  .exhibit-title {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666;
+    margin-bottom: 14px;
+    letter-spacing: 0.03em;
+  }
+
+  .body-text {
+    font-size: 16px;
+    line-height: 1.8;
+    color: #333;
+  }
+
+  /* ── Tables ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    table-layout: auto;
+  }
+
+  th {
+    background: none;
+    color: #222;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 700;
+    font-size: 14px;
+    border-bottom: 2px solid #222;
+    white-space: nowrap;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 0.5px solid #ddd;
+    font-size: 15px;
+    line-height: 1.5;
+    color: #333;
+    vertical-align: top;
+  }
+
+  td.nowrap, th.nowrap {
+    white-space: nowrap;
+  }
+
+  td strong { color: #222; font-weight: 700; }
+
+  td.highlight {
+    color: #003A70;
+    font-weight: 700;
+  }
+
+  td.warn {
+    color: #C0392B;
+    font-weight: 700;
+  }
+
+  /* ── Bullet Points (minimal) ── */
+  .points {
+    list-style: none;
+    padding: 0;
+  }
+
+  .points li {
+    padding: 8px 0 8px 18px;
+    position: relative;
+    font-size: 16px;
+    line-height: 1.7;
+    color: #333;
+  }
+
+  .points li::before {
+    content: '■';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    font-size: 7px;
+    color: #222;
+    line-height: 1.7;
+  }
+
+  .points li strong { color: #222; }
+
+  /* ── Two Column ── */
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    flex: 1;
+  }
+
+  .col-divider {
+    border-right: 0.5px solid #ddd;
+    padding-right: 40px;
+  }
+
+  /* ── Flow Diagram (simple) ── */
+  .flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    padding-top: 16px;
+  }
+
+  .flow-step {
+    flex: 1;
+    padding: 24px 28px;
+    border: 1px solid #ccc;
+    position: relative;
+  }
+
+  .flow-step.done {
+    border-color: #222;
+    background: #fafafa;
+  }
+
+  .flow-step.pending {
+    border-style: dashed;
+    border-color: #bbb;
+  }
+
+  .flow-step-label {
+    font-size: 13px;
+    color: #999;
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+
+  .flow-step-title {
+    font-family: 'Noto Serif JP', Georgia, serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: #222;
+    margin-bottom: 8px;
+  }
+
+  .flow-step-desc {
+    font-size: 14px;
+    color: #666;
+    line-height: 1.7;
+  }
+
+  .flow-arrow {
+    display: flex;
+    align-items: center;
+    padding: 0 14px;
+    font-size: 22px;
+    color: #999;
+    flex-shrink: 0;
+  }
+
+  /* ── Callout Box ── */
+  .callout {
+    border-left: 3px solid #222;
+    padding: 14px 18px;
+    font-size: 15px;
+    line-height: 1.7;
+    color: #333;
+    margin-top: auto;
+    margin-bottom: 8px;
+    background: #fafafa;
+  }
+
+  .callout.warn {
+    border-left-color: #C0392B;
+  }
+
+  .callout strong { color: #222; }
+
+  /* ── Big Number (sparingly used) ── */
+  .kpi-row {
+    display: flex;
+    gap: 40px;
+    padding: 8px 0;
+  }
+
+  .kpi {
+    text-align: left;
+  }
+
+  .kpi-value {
+    font-family: 'Noto Serif JP', Georgia, serif;
+    font-size: 42px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.1;
+  }
+
+  .kpi-unit {
+    font-size: 18px;
+    font-weight: 400;
+  }
+
+  .kpi-label {
+    font-size: 14px;
+    color: #666;
+    margin-top: 2px;
+  }
+
+  /* ── Horizontal Bar (minimal) ── */
+  .hbar-group { margin: 8px 0; }
+
+  .hbar-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+
+  .hbar-label {
+    width: 200px;
+    font-size: 14px;
+    color: #333;
+    text-align: right;
+    padding-right: 16px;
+    flex-shrink: 0;
+    white-space: nowrap;
+  }
+
+  .hbar-track {
+    flex: 1;
+    height: 24px;
+    background: #f5f5f5;
+    position: relative;
+  }
+
+  .hbar-fill {
+    height: 100%;
+    background: #222;
+  }
+
+  .hbar-val {
+    font-size: 14px;
+    font-weight: 700;
+    color: #222;
+    margin-left: 10px;
+    flex-shrink: 0;
+    width: 52px;
+  }
+
+  /* ── Cover ── */
+  .slide.cover {
+    justify-content: flex-end;
+    padding: 64px;
+  }
+
+  .cover-top-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #222;
+  }
+
+  .cover-content {
+    max-width: 70%;
+  }
+
+  .cover-org {
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+  }
+
+  .cover-title {
+    font-family: 'Noto Serif JP', Georgia, serif;
+    font-size: 40px;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .cover-subtitle {
+    font-size: 18px;
+    font-weight: 300;
+    color: #666;
+    margin-bottom: 40px;
+  }
+
+  .cover-rule {
+    width: 48px;
+    height: 2px;
+    background: #222;
+    margin-bottom: 20px;
+  }
+
+  .cover-meta {
+    font-size: 15px;
+    color: #666;
+    line-height: 1.8;
+  }
+
+  /* ── Status Marks ── */
+  .status-done { color: #222; font-weight: 700; }
+  .status-partial { color: #D4740E; font-weight: 700; }
+  .status-pending { color: #999; font-weight: 700; }
+
+  /* ── Navigation ── */
+  .nav-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 40px;
+    background: rgba(34,34,34,0.92);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    z-index: 100;
+  }
+
+  .nav-btn {
+    background: none;
+    border: none;
+    color: rgba(255,255,255,0.6);
+    font-size: 13px;
+    cursor: pointer;
+    font-family: 'Noto Sans JP', Arial, sans-serif;
+    padding: 4px 12px;
+    transition: color 0.2s;
+  }
+  .nav-btn:hover { color: #fff; }
+
+  .nav-indicator {
+    color: rgba(255,255,255,0.4);
+    font-size: 12px;
+    min-width: 60px;
+    text-align: center;
+  }
+</style>
+</head>
+<body>
+
+<div class="slide-deck" id="deck">
+
+  <!-- Slide 0: Cover -->
+  <div class="slide cover active" data-page="">
+    <div class="cover-top-line"></div>
+    <div class="cover-content">
+      <div class="cover-org">草津市倫理法人会</div>
+      <div class="cover-title">倫理×AI実践セミナー<br>企画全体像と第1回実施報告</div>
+      <div class="cover-rule"></div>
+      <div class="cover-meta">
+        副専任幹事　今宿裕昭<br>
+        令和8年3月
+      </div>
+    </div>
+  </div>
+
+  <!-- Slide 1: Executive Summary -->
+  <div class="slide" data-page="1">
+    <div class="action-title-area">
+      <div class="action-title">AIを入口に未会員経営者を集客し、MS参加につなげる全2回完結の普及企画を実施。<br>第1回は54名・満足度4.62を記録したが、入会・MS参加の成果はこれから</div>
+    </div>
+    <div class="body-area">
+      <div class="two-col" style="padding-top: 8px;">
+        <div class="col-divider">
+          <div class="exhibit-title">第1回実績サマリー</div>
+          <div class="kpi-row">
+            <div class="kpi">
+              <div class="kpi-value">54<span class="kpi-unit">名</span></div>
+              <div class="kpi-label">参加者数（会員47 + ゲスト7）</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-value">4.62</div>
+              <div class="kpi-label">総合満足度（5.0満点）</div>
+            </div>
+          </div>
+          <div class="kpi-row" style="margin-top: 8px;">
+            <div class="kpi">
+              <div class="kpi-value">93.1<span class="kpi-unit">%</span></div>
+              <div class="kpi-label">満足度4以上の割合</div>
+            </div>
+            <div class="kpi">
+              <div class="kpi-value">79.3<span class="kpi-unit">%</span></div>
+              <div class="kpi-label">次回参加希望</div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="exhibit-title">企画の位置づけ</div>
+          <table>
+            <tr><th>項目</th><th>内容</th></tr>
+            <tr><td class="nowrap"><strong>位置づけ</strong></td><td>MS・研究所行事を補完する普及活動</td></tr>
+            <tr><td class="nowrap"><strong>構成</strong></td><td>全2回完結（3月済・5月予定）</td></tr>
+            <tr><td class="nowrap"><strong>目的</strong></td><td>関心喚起 → MS参加 → 入会</td></tr>
+            <tr><td class="nowrap"><strong>現状</strong></td><td class="warn">入会・MS参加の成果は未達</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="source-area">
+      <span>Source: 第1回参加者アンケート（n=29）</span>
+      <span class="page-num">1</span>
+    </div>
+  </div>
+
+  <!-- Slide 2: 課題認識 -->
+  <div class="slide" data-page="2">
+    <div class="action-title-area">
+      <div class="action-title">既存の普及活動だけでは、倫理法人会を知らない経営者層にリーチできていない</div>
+    </div>
+    <div class="body-area">
+      <div class="two-col" style="padding-top: 8px;">
+        <div class="col-divider">
+          <div class="exhibit-title">普及活動における3つの課題</div>
+          <table>
+            <tr><th class="nowrap">#</th><th class="nowrap">課題</th><th>背景</th></tr>
+            <tr>
+              <td><strong>1</strong></td>
+              <td class="nowrap"><strong>接点の不足</strong></td>
+              <td>倫理法人会を知らない経営者層へのアプローチ手段が限られている</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td class="nowrap"><strong>MSの参加障壁</strong></td>
+              <td>早朝開催・内容が未知のため、初回参加の心理的ハードルが高い</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td class="nowrap"><strong>接触層の固定化</strong></td>
+              <td>既存の普及チャネルでは同じ層にしか届かない</td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <div class="exhibit-title">本企画の狙い</div>
+          <ul class="points">
+            <li>「AI」という社会的関心の高いテーマを入口に、<strong>倫理法人会に接点のなかった層</strong>を呼び込む</li>
+            <li>夕方開催・無料・テーマの親しみやすさで<strong>初回参加のハードルを下げる</strong></li>
+            <li>参加後のフォローでMS体験参加、入会へつなげる<strong>普及導線</strong>を設計する</li>
+          </ul>
+          <div class="callout" style="margin-top: auto;">
+            本企画はMSや研究所行事に代わるものではなく、<strong>そこへの参加者を増やすための入口</strong>として設計した。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="source-area">
+      <span></span>
+      <span class="page-num">2</span>
+    </div>
+  </div>
+
+  <!-- Slide 3: 企画全体像 -->
+  <div class="slide" data-page="3">
+    <div class="action-title-area">
+      <div class="action-title">全2回完結の構成で、第1回で関心を喚起し、第2回でMSへの橋渡しを行う</div>
+    </div>
+    <div class="body-area">
+      <div class="flow">
+        <div class="flow-step done">
+          <div class="flow-step-label">第1回｜3月17日 済</div>
+          <div class="flow-step-title">関心喚起</div>
+          <div class="flow-step-desc">
+            AIテーマでゲストを集客<br>
+            倫理×AIの接点を提示
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step pending">
+          <div class="flow-step-label">第2回｜5月予定</div>
+          <div class="flow-step-title">MSへの橋渡し</div>
+          <div class="flow-step-desc">
+            実践報告・MS紹介<br>
+            体験参加への案内
+          </div>
+        </div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">
+          <div class="flow-step-label">継続的</div>
+          <div class="flow-step-title">普及成果</div>
+          <div class="flow-step-desc">
+            MS参加・入会<br>
+            継続的なお声がけ
+          </div>
+        </div>
+      </div>
+      <div class="callout" style="margin-bottom: 8px;">
+        <strong>第2回をもって本企画は完結とする。</strong>以降の普及はMS・研究所行事を中心に進める。
+      </div>
+    </div>
+    <div class="source-area">
+      <span></span>
+      <span class="page-num">3</span>
+    </div>
+  </div>
+
+  <!-- Slide 4: 各回設計意図 -->
+  <div class="slide" data-page="4">
+    <div class="action-title-area">
+      <div class="action-title">各回に明確な役割を持たせ、成功指標をMS参加・入会に直結させる</div>
+    </div>
+    <div class="body-area">
+      <div class="exhibit-title">各回の設計意図と成功指標</div>
+      <table>
+        <tr>
+          <th class="nowrap"></th>
+          <th>第1回（3月17日・実施済）</th>
+          <th>第2回（5月・予定）</th>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>テーマ</strong></td>
+          <td>純粋倫理と事業加速 ─「伴走の賢者」としてのAI</td>
+          <td>MS体験と実践共有（仮）</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>狙い</strong></td>
+          <td>関心喚起。「倫理法人会はこういう場」と知ってもらう</td>
+          <td>橋渡し。「MSに行ってみよう」と思ってもらう</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>対象</strong></td>
+          <td>未会員経営者 ＋ 既存会員</td>
+          <td>第1回参加ゲスト ＋ 既存会員</td>
+        </tr>
+        <tr>
+          <td class="nowrap"><strong>成功指標</strong></td>
+          <td>ゲスト参加者数、満足度</td>
+          <td class="highlight">MS参加申込数、入会見込み</td>
+        </tr>
+      </table>
+    </div>
+    <div class="source-area">
+      <span></span>
+      <span class="page-num">4</span>
+    </div>
+  </div>
+
+  <!-- Slide 5: 開催概要と内容 -->
+  <div class="slide" data-page="5">
+    <div class="action-title-area">
+      <div class="action-title">第1回は「5つの壁×万人幸福の栞」の構成で、倫理を学ぶ人こそAIを使いこなせると訴求</div>
+    </div>
+    <div class="body-area">
+      <div class="two-col" style="padding-top: 4px;">
+        <div class="col-divider">
+          <div class="exhibit-title">開催概要</div>
+          <table>
+            <tr><td class="nowrap"><strong>日時</strong></td><td>令和8年3月17日（火）18:30〜20:30</td></tr>
+            <tr><td class="nowrap"><strong>会場</strong></td><td>キラリエ草津 402号室</td></tr>
+            <tr><td class="nowrap"><strong>講師</strong></td><td>今宿裕昭 / 中野充博（㈱バーグ企画）</td></tr>
+            <tr><td class="nowrap"><strong>参加者</strong></td><td>54名（会員47名 + ゲスト7名）</td></tr>
+            <tr><td class="nowrap"><strong>参加費</strong></td><td>無料</td></tr>
+            <tr><td class="nowrap"><strong>経費</strong></td><td>7,500円</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="exhibit-title">内容構成：AI導入の5つの壁 × 栞の教え</div>
+          <table>
+            <tr><th class="nowrap">壁</th><th class="nowrap">対応する栞の教え</th></tr>
+            <tr><td class="nowrap">怖い</td><td class="nowrap">第15条「信ずれば成り、憂えれば崩れる」</td></tr>
+            <tr><td class="nowrap">人がいない</td><td class="nowrap">第4条「人は鏡、万象はわが師」</td></tr>
+            <tr><td class="nowrap">決められない</td><td class="nowrap">第1条「今日は最良の一日」</td></tr>
+            <tr><td class="nowrap">判断できない</td><td class="nowrap">第3条「運命は自らまねき…」</td></tr>
+            <tr><td class="nowrap">用途不明</td><td class="nowrap">第16条「己を尊び人に及ぼす」</td></tr>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="source-area">
+      <span>Source: 中小企業庁「デジタル化の実態と課題に関する調査」（2025）の5つの壁に基づき構成</span>
+      <span class="page-num">5</span>
+    </div>
+  </div>
+
+  <!-- Slide 6: アンケート結果 -->
+  <div class="slide" data-page="6">
+    <div class="action-title-area">
+      <div class="action-title">満足度4.62で関心喚起に成功。ゲスト7名参加、回答2名とも次回希望だが入会関心はまだない</div>
+    </div>
+    <div class="body-area">
+      <div class="two-col" style="padding-top: 4px;">
+        <div class="col-divider">
+          <div class="exhibit-title">満足度・意欲指標（n=29）</div>
+          <table>
+            <tr><th>指標</th><th style="text-align: right;" class="nowrap">結果</th></tr>
+            <tr><td>総合満足度</td><td style="text-align: right;" class="highlight"><strong>4.62 / 5.0</strong></td></tr>
+            <tr><td>満足度4以上の割合</td><td style="text-align: right;"><strong>93.1%</strong>（27名）</td></tr>
+            <tr><td>AI活用意欲</td><td style="text-align: right;"><strong>4.41 / 5.0</strong></td></tr>
+            <tr><td>次回セミナー参加希望</td><td style="text-align: right;"><strong>79.3%</strong>（23名）</td></tr>
+          </table>
+          <div style="margin-top: 20px;">
+            <div class="exhibit-title">ゲスト参加者の反応（7名中、回答2名）</div>
+            <table>
+              <tr><th>指標</th><th style="text-align: right;" class="nowrap">ゲスト</th><th style="text-align: right;" class="nowrap">全体</th></tr>
+              <tr><td>満足度</td><td style="text-align: right;">4.00</td><td style="text-align: right;">4.62</td></tr>
+              <tr><td>AI活用意欲</td><td style="text-align: right;">3.50</td><td style="text-align: right;">4.41</td></tr>
+              <tr><td>次回希望</td><td style="text-align: right;"><strong>100%</strong></td><td style="text-align: right;">79.3%</td></tr>
+              <tr><td>入会関心</td><td style="text-align: right;" class="warn">0名</td><td style="text-align: right;">1名</td></tr>
+            </table>
+          </div>
+        </div>
+        <div>
+          <div class="exhibit-title">最も印象に残った内容</div>
+          <div class="hbar-group" style="margin-top: 8px;">
+            <div class="hbar-row">
+              <div class="hbar-label">AI取締役会の実践事例</div>
+              <div class="hbar-track"><div class="hbar-fill" style="width: 72.4%;"></div></div>
+              <div class="hbar-val">72.4%</div>
+            </div>
+            <div class="hbar-row">
+              <div class="hbar-label">倫理とAIのつながり</div>
+              <div class="hbar-track"><div class="hbar-fill" style="width: 13.8%; background: #999;"></div></div>
+              <div class="hbar-val">13.8%</div>
+            </div>
+            <div class="hbar-row">
+              <div class="hbar-label">5つの壁フレームワーク</div>
+              <div class="hbar-track"><div class="hbar-fill" style="width: 10.3%; background: #999;"></div></div>
+              <div class="hbar-val">10.3%</div>
+            </div>
+          </div>
+          <div class="callout warn" style="margin-top: auto;">
+            ゲスト7名中、アンケート回答は2名。回答者2名とも次回参加を希望。1名は「AI否定的→活用すべき」と意識変容あり。ただし<strong>入会への関心はまだない</strong>。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="source-area">
+      <span>Source: 第1回参加者アンケート（n=29）。回答率は参加者の約58%</span>
+      <span class="page-num">6</span>
+    </div>
+  </div>
+
+  <!-- Slide 7: 第1回評価 -->
+  <div class="slide" data-page="7">
+    <div class="action-title-area">
+      <div class="action-title">集客と関心喚起は達成したが、普及成果は未達。第2回までのフォローが鍵となる</div>
+    </div>
+    <div class="body-area">
+      <div class="exhibit-title">第1回 達成状況の評価</div>
+      <table>
+        <tr>
+          <th class="nowrap">評価</th>
+          <th class="nowrap">項目</th>
+          <th>根拠</th>
+        </tr>
+        <tr>
+          <td class="status-done">○ 達成</td>
+          <td><strong>ゲスト参加者の集客</strong></td>
+          <td>54名参加（会員47名 + ゲスト7名）</td>
+        </tr>
+        <tr>
+          <td class="status-done">○ 達成</td>
+          <td><strong>関心の喚起</strong></td>
+          <td>満足度4.62/5.0、次回参加希望79.3%</td>
+        </tr>
+        <tr>
+          <td class="status-partial">△ 一部</td>
+          <td><strong>倫理×AIの接点提示</strong></td>
+          <td>一部参加者から「倫理との接続が分かりにくい」との声。第2回で改善</td>
+        </tr>
+        <tr>
+          <td class="status-pending">─ 未達</td>
+          <td><strong>普及成果（入会・MS参加）</strong></td>
+          <td>入会・MS参加に至った実績はまだない。第2回までにフォローを実施</td>
+        </tr>
+      </table>
+      <div class="callout warn" style="margin-top: auto; margin-bottom: 8px;">
+        集客と関心喚起は成功したが、本企画の最終目的である<strong>「入会・MS参加」は未達</strong>。<br>
+        第2回までの期間にゲストへのMS参加お声がけを最優先で進め、具体的な成果につなげる。
+      </div>
+    </div>
+    <div class="source-area">
+      <span></span>
+      <span class="page-num">7</span>
+    </div>
+  </div>
+
+  <!-- Slide 8: Next Actions -->
+  <div class="slide" data-page="8">
+    <div class="action-title-area">
+      <div class="action-title">第2回に向けて3つのアクションを実行し、MS参加申込と入会1名以上を目指す</div>
+    </div>
+    <div class="body-area">
+      <div class="two-col" style="padding-top: 4px;">
+        <div class="col-divider">
+          <div class="exhibit-title">第1回→第2回の間に実行するアクション</div>
+          <table>
+            <tr><th class="nowrap">#</th><th class="nowrap">アクション</th><th>内容</th></tr>
+            <tr>
+              <td><strong>1</strong></td>
+              <td class="nowrap"><strong>MSお声がけ</strong></td>
+              <td>ゲストに個別フォロー、MS体験を促す</td>
+            </tr>
+            <tr>
+              <td><strong>2</strong></td>
+              <td class="nowrap"><strong>改善点の反映</strong></td>
+              <td>ツール紹介・初心者向け内容の充実</td>
+            </tr>
+            <tr>
+              <td><strong>3</strong></td>
+              <td class="nowrap"><strong>MS導線の設計</strong></td>
+              <td>MS体験参加への導線を組み込む</td>
+            </tr>
+          </table>
+        </div>
+        <div>
+          <div class="exhibit-title">第2回の成功指標</div>
+          <table>
+            <tr><th>指標</th><th>目標</th></tr>
+            <tr>
+              <td><strong>ゲストのMS体験参加</strong></td>
+              <td class="highlight">具体的な申込を得る</td>
+            </tr>
+            <tr>
+              <td><strong>入会見込み</strong></td>
+              <td class="highlight">1名以上</td>
+            </tr>
+          </table>
+          <div class="callout" style="margin-top: 32px;">
+            第2回をもって企画完結。以降は<strong>MS・研究所行事を中心とした普及活動</strong>に戻る。
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="source-area">
+      <span></span>
+      <span class="page-num">8</span>
+    </div>
+  </div>
+
+  <!-- Slide 9: まとめ -->
+  <div class="slide" data-page="9">
+    <div class="action-title-area">
+      <div class="action-title">全2回完結の普及企画として、MSへの橋渡しを完遂し、企画を終結させる</div>
+    </div>
+    <div class="body-area">
+      <div class="exhibit-title" style="margin-bottom: 4px;">本報告の要点</div>
+      <table>
+        <tr><th class="nowrap">#</th><th class="nowrap">要点</th><th>詳細</th></tr>
+        <tr>
+          <td><strong>1</strong></td>
+          <td><strong>企画の位置づけ</strong></td>
+          <td>MS・研究所行事を補完する全2回完結の普及活動</td>
+        </tr>
+        <tr>
+          <td><strong>2</strong></td>
+          <td><strong>第1回の成果</strong></td>
+          <td>54名参加・満足度4.62で関心喚起に成功</td>
+        </tr>
+        <tr>
+          <td><strong>3</strong></td>
+          <td><strong>普及成果</strong></td>
+          <td>入会・MS参加はこれから。ゲストフォローを最優先で進める</td>
+        </tr>
+        <tr>
+          <td><strong>4</strong></td>
+          <td><strong>第2回の方針</strong></td>
+          <td>MS体験への橋渡しを行い、企画を完結する</td>
+        </tr>
+      </table>
+      <div class="callout" style="margin-top: auto; margin-bottom: 8px;">
+        本企画はMSや研究所行事に代わるものではなく、そこへの参加者を増やすための入口として設計した。<br>
+        <strong>第2回をもって完結し、以降の普及活動はMS・研究所行事を中心に進める。</strong>
+      </div>
+    </div>
+    <div class="source-area">
+      <span>草津市倫理法人会　副専任幹事　今宿裕昭　令和8年3月</span>
+      <span class="page-num">9</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- Navigation -->
+<div class="nav-bar">
+  <button class="nav-btn" onclick="navigate(-1)">← Prev</button>
+  <span class="nav-indicator" id="navIndicator">0 / 9</span>
+  <button class="nav-btn" onclick="navigate(1)">Next →</button>
+</div>
+
+<script>
+  let current = 0;
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+
+  function showSlide(i) {
+    slides.forEach(s => s.classList.remove('active'));
+    slides[i].classList.add('active');
+    document.getElementById('navIndicator').textContent = i + ' / ' + (total - 1);
+  }
+
+  function navigate(dir) {
+    current = Math.max(0, Math.min(total - 1, current + dir));
+    showSlide(current);
+  }
+
+  document.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ') { e.preventDefault(); navigate(1); }
+    if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') { e.preventDefault(); navigate(-1); }
+  });
+
+  let tx = 0;
+  document.addEventListener('touchstart', e => { tx = e.touches[0].clientX; });
+  document.addEventListener('touchend', e => {
+    const d = tx - e.changedTouches[0].clientX;
+    if (Math.abs(d) > 50) navigate(d > 0 ? 1 : -1);
+  });
+
+  showSlide(0);
+</script>
+
+</body>
+</html>

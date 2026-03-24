@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>倫理×AI実践セミナー 受講後アンケート</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: "Hiragino Sans", "Yu Gothic", "Meiryo", sans-serif;
+    background: #f8fafc;
+    color: #1e293b;
+    line-height: 1.6;
+    padding: 0 0 80px 0;
+  }
+  .header {
+    background: linear-gradient(135deg, #0a0f1a, #1e293b);
+    color: #fff;
+    padding: 32px 20px 24px;
+    text-align: center;
+  }
+  .header h1 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .header p {
+    font-size: 13px;
+    color: #94a3b8;
+  }
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 0 16px;
+  }
+  .section {
+    background: #fff;
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin-top: 16px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+  }
+  .section-title {
+    font-size: 16px;
+    font-weight: 700;
+    color: #0a0f1a;
+    margin-bottom: 16px;
+    padding-bottom: 8px;
+    border-bottom: 2px solid #00b4d8;
+  }
+  .question {
+    margin-bottom: 20px;
+  }
+  .question:last-child {
+    margin-bottom: 0;
+  }
+  .q-label {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 10px;
+    display: block;
+  }
+  .q-label .required {
+    background: #ef4444;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-weight: 500;
+  }
+  .q-label .optional {
+    background: #94a3b8;
+    color: #fff;
+    font-size: 11px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 6px;
+    vertical-align: middle;
+    font-weight: 500;
+  }
+  .radio-group, .checkbox-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .radio-group.horizontal {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+  }
+  .radio-group.horizontal label {
+    flex: 1;
+    min-width: 0;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    border-right: none;
+    padding: 10px 4px;
+    font-size: 13px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .radio-group.horizontal label:first-child {
+    border-radius: 8px 0 0 8px;
+  }
+  .radio-group.horizontal label:last-child {
+    border-radius: 0 8px 8px 0;
+    border-right: 1px solid #e2e8f0;
+  }
+  .radio-group.horizontal label:has(input:checked) {
+    background: #00b4d8;
+    color: #fff;
+    border-color: #00b4d8;
+    font-weight: 700;
+  }
+  .radio-group.horizontal input[type="radio"] {
+    display: none;
+  }
+  .radio-group.vertical label, .checkbox-group label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 14px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.15s;
+  }
+  .radio-group.vertical label:has(input:checked),
+  .checkbox-group label:has(input:checked) {
+    background: #f0fdfa;
+    border-color: #00b4d8;
+  }
+  .radio-group.vertical input[type="radio"],
+  .checkbox-group input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #00b4d8;
+    flex-shrink: 0;
+  }
+  .scale-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 11px;
+    color: #94a3b8;
+    margin-top: 4px;
+    padding: 0 4px;
+  }
+  textarea {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    resize: vertical;
+    min-height: 80px;
+    transition: border-color 0.15s;
+  }
+  textarea:focus {
+    outline: none;
+    border-color: #00b4d8;
+  }
+  input[type="text"], input[type="email"], input[type="tel"] {
+    width: 100%;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.15s;
+  }
+  input[type="text"]:focus, input[type="email"]:focus, input[type="tel"]:focus {
+    outline: none;
+    border-color: #00b4d8;
+  }
+  .cta-section {
+    background: linear-gradient(135deg, #0a0f1a, #1e293b);
+    border-radius: 12px;
+    padding: 24px 20px;
+    margin-top: 16px;
+    color: #fff;
+  }
+  .cta-section .section-title {
+    color: #00b4d8;
+    border-bottom-color: #00b4d8;
+  }
+  .cta-section label {
+    color: #e2e8f0;
+  }
+  .cta-section .q-label {
+    color: #fff;
+  }
+  .cta-section input[type="text"],
+  .cta-section input[type="email"],
+  .cta-section input[type="tel"] {
+    background: rgba(255,255,255,0.1);
+    border-color: rgba(255,255,255,0.2);
+    color: #fff;
+  }
+  .cta-section input::placeholder {
+    color: #64748b;
+  }
+  .cta-section .checkbox-group label {
+    border-color: rgba(255,255,255,0.15);
+    color: #e2e8f0;
+  }
+  .cta-section .checkbox-group label:has(input:checked) {
+    background: rgba(0,180,216,0.15);
+    border-color: #00b4d8;
+  }
+  .submit-btn {
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin: 24px auto 0;
+    padding: 16px;
+    background: #00b4d8;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  .submit-btn:hover {
+    background: #0096b4;
+  }
+  .submit-btn:active {
+    transform: scale(0.98);
+  }
+  .thanks {
+    display: none;
+    text-align: center;
+    padding: 60px 20px;
+  }
+  .thanks h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+  }
+  .thanks p {
+    color: #64748b;
+    font-size: 14px;
+  }
+  .note {
+    font-size: 12px;
+    color: #94a3b8;
+    margin-top: 6px;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>倫理×AI実践セミナー<br>受講後アンケート</h1>
+  <p>2026年3月17日｜草津市倫理法人会</p>
+</div>
+
+<div class="container">
+
+  <!-- Q1: 満足度 -->
+  <div class="section">
+    <div class="section-title">セミナーの感想</div>
+
+    <div class="question">
+      <span class="q-label">Q1. セミナー全体の満足度<span class="required">必須</span></span>
+      <div class="radio-group horizontal">
+        <label><input type="radio" name="q1" value="1">1</label>
+        <label><input type="radio" name="q1" value="2">2</label>
+        <label><input type="radio" name="q1" value="3">3</label>
+        <label><input type="radio" name="q1" value="4">4</label>
+        <label><input type="radio" name="q1" value="5">5</label>
+      </div>
+      <div class="scale-labels">
+        <span>不満</span>
+        <span>大変満足</span>
+      </div>
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q2. 最も印象に残った内容は？<span class="required">必須</span></span>
+      <div class="radio-group vertical">
+        <label><input type="radio" name="q2" value="wall">中小企業AI導入の「5つの壁」</label>
+        <label><input type="radio" name="q2" value="rinri">栞の教えとAI活用のつながり</label>
+        <label><input type="radio" name="q2" value="board">AI取締役会の実践事例</label>
+        <label><input type="radio" name="q2" value="demo">AIの実演・体験ワーク</label>
+        <label><input type="radio" name="q2" value="other">その他</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q3. セミナーを受けて、AIを活用してみたいと思いましたか？<span class="required">必須</span></span>
+      <div class="radio-group horizontal">
+        <label><input type="radio" name="q3" value="1">1</label>
+        <label><input type="radio" name="q3" value="2">2</label>
+        <label><input type="radio" name="q3" value="3">3</label>
+        <label><input type="radio" name="q3" value="4">4</label>
+        <label><input type="radio" name="q3" value="5">5</label>
+      </div>
+      <div class="scale-labels">
+        <span>思わない</span>
+        <span>すぐ始めたい</span>
+      </div>
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q4. 感想・気づき・ご質問があればお聞かせください<span class="optional">任意</span></span>
+      <textarea name="q4" placeholder="自由にご記入ください"></textarea>
+    </div>
+  </div>
+
+  <!-- Q5-6: AI活用の現状と関心 -->
+  <div class="section">
+    <div class="section-title">AI活用について</div>
+
+    <div class="question">
+      <span class="q-label">Q5. 現在のAI活用状況は？<span class="required">必須</span></span>
+      <div class="radio-group vertical">
+        <label><input type="radio" name="q5" value="none">まだ使ったことがない</label>
+        <label><input type="radio" name="q5" value="tried">試したことはある</label>
+        <label><input type="radio" name="q5" value="using">業務で使っている</label>
+        <label><input type="radio" name="q5" value="advanced">社内で仕組み化している</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q6. AIを使ってみたい業務は？（複数可）<span class="optional">任意</span></span>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="q6" value="mail">メール・文書作成</label>
+        <label><input type="checkbox" name="q6" value="proposal">提案書・企画書の作成</label>
+        <label><input type="checkbox" name="q6" value="minutes">議事録・報告書の整理</label>
+        <label><input type="checkbox" name="q6" value="sns">SNS・ブログの発信</label>
+        <label><input type="checkbox" name="q6" value="analysis">データ分析・経営判断</label>
+        <label><input type="checkbox" name="q6" value="customer">顧客対応・問い合わせ</label>
+        <label><input type="checkbox" name="q6" value="other">その他</label>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA: 個別相談・入会 -->
+  <div class="cta-section">
+    <div class="section-title">今後のご案内</div>
+
+    <div class="question">
+      <span class="q-label">Q7. ご興味のあるものにチェックしてください（複数可）<span class="optional">任意</span></span>
+      <div class="checkbox-group">
+        <label><input type="checkbox" name="q7" value="online-seminar" style="accent-color: #f59e0b;"><strong>3/20 オンラインセミナー「発信が続かない」を終わらせる</strong>（¥5,000・定員5名）に興味がある</label>
+        <label><input type="checkbox" name="q7" value="next-seminar">次回セミナーの案内がほしい</label>
+        <label><input type="checkbox" name="q7" value="consultation">自社のAI活用について個別相談したい</label>
+        <label><input type="checkbox" name="q7" value="advisor">AI顧問サービスの詳細を知りたい</label>
+        <label><input type="checkbox" name="q7" value="join">草津市倫理法人会への入会に興味がある</label>
+      </div>
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q8. お名前<span class="optional">任意</span></span>
+      <input type="text" name="name" placeholder="山田 太郎">
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q9. 会社名・役職<span class="optional">任意</span></span>
+      <input type="text" name="company" placeholder="株式会社○○ 代表取締役">
+    </div>
+
+    <div class="question">
+      <span class="q-label">Q10. メールアドレスまたは電話番号<span class="optional">任意</span></span>
+      <input type="email" name="email" placeholder="example@company.co.jp">
+      <p class="note">※ 個別相談・AI顧問にチェックされた方はご記入ください。後日ご連絡いたします。</p>
+    </div>
+  </div>
+
+  <button class="submit-btn" onclick="handleSubmit()">送信する</button>
+
+  <div class="thanks" id="thanks">
+    <h2>ご回答ありがとうございました</h2>
+    <p>本日のセミナーが、AI活用の第一歩となれば幸いです。<br>個別相談をご希望の方には、後日ご連絡いたします。</p>
+    <div style="margin-top: 32px; padding: 24px; background: linear-gradient(135deg, #0a0f1a, #1e293b); border-radius: 12px; text-align: center;">
+      <p style="color: #00b4d8; font-weight: 700; font-size: 14px; margin-bottom: 8px;">NEXT STEP</p>
+      <p style="color: #fff; font-size: 18px; font-weight: 700; margin-bottom: 4px;">3/20（金）オンラインセミナー</p>
+      <p style="color: #e2e8f0; font-size: 14px; margin-bottom: 16px;">「発信が続かない」を終わらせる — 週1で続く発信の仕組みづくり</p>
+      <a href="https://ima-juku-online-vol3.peatix.com/view" target="_blank" style="display: inline-block; background: #00b4d8; color: #fff; padding: 12px 32px; border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 15px;">お申し込みはこちら →</a>
+      <p style="color: #64748b; font-size: 12px; margin-top: 10px;">¥5,000｜定員5名・少人数制</p>
+    </div>
+  </div>
+
+</div>
+
+<script>
+function handleSubmit() {
+  // Validate required fields
+  const required = [
+    { name: 'q1', label: 'Q1（満足度）' },
+    { name: 'q2', label: 'Q2（印象に残った内容）' },
+    { name: 'q3', label: 'Q3（AI活用意欲）' },
+    { name: 'q5', label: 'Q5（AI活用状況）' },
+  ];
+
+  for (const field of required) {
+    const checked = document.querySelector(`input[name="${field.name}"]:checked`);
+    if (!checked) {
+      alert(`${field.label}をご回答ください。`);
+      return;
+    }
+  }
+
+  // In production, replace with actual form submission (Google Forms, etc.)
+  // For now, show thank you message
+  document.querySelector('.container').style.display = 'none';
+  document.getElementById('thanks').style.display = 'block';
+  window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
