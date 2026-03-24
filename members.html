@@ -92,6 +92,100 @@
         color: var(--text-light);
       }
 
+      /* ===== Newcomer Section ===== */
+      .newcomer-section {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 2.5rem 2rem 0;
+      }
+      .newcomer-label {
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        color: var(--brown);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+      }
+      .newcomer-label::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: var(--border-warm);
+      }
+      .newcomer-card {
+        background: #fff;
+        border: 2px solid var(--navy);
+        border-radius: 4px;
+        padding: 2rem 2.5rem;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 2rem;
+        align-items: start;
+      }
+      .newcomer-card .member-initial {
+        width: 64px;
+        height: 64px;
+        font-size: 1.5rem;
+      }
+      .newcomer-card .member-no {
+        font-size: 0.72rem;
+      }
+      .newcomer-card .member-name {
+        font-size: 1.6rem;
+      }
+      .newcomer-card .member-company {
+        margin-bottom: 1rem;
+      }
+      .newcomer-card .member-vision {
+        border-top: none;
+        padding-top: 0;
+      }
+      .newcomer-card .member-vision::before {
+        display: none;
+      }
+      .newcomer-card .vision-text {
+        font-family: var(--f-serif);
+        font-size: 1.05rem;
+        line-height: 2;
+        color: var(--text);
+      }
+      .newcomer-card .vision-text::before {
+        content: "「";
+        color: var(--brown-light);
+        font-size: 1.4rem;
+      }
+      .newcomer-card .vision-text::after {
+        content: "」";
+        color: var(--brown-light);
+        font-size: 1.4rem;
+      }
+      .newcomer-date {
+        font-size: 0.75rem;
+        color: var(--text-light);
+        margin-top: 0.8rem;
+      }
+      @media (max-width: 640px) {
+        .newcomer-card {
+          grid-template-columns: 1fr;
+          gap: 1rem;
+          padding: 1.5rem;
+        }
+        .newcomer-card .member-initial {
+          width: 48px;
+          height: 48px;
+          font-size: 1.2rem;
+        }
+        .newcomer-card .member-name {
+          font-size: 1.3rem;
+        }
+        .newcomer-section {
+          padding-left: 1rem;
+          padding-right: 1rem;
+        }
+      }
+
       /* ===== Members Grid ===== */
       .members-section {
         max-width: 960px;
@@ -308,6 +402,23 @@
           <div class="hero-count">
             <div class="num">8</div>
             <div class="label">名の実践士が登録</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newcomer -->
+      <section class="newcomer-section">
+        <div class="newcomer-label">新たな実践士</div>
+        <div class="newcomer-card">
+          <div class="member-initial initial-h">原</div>
+          <div>
+            <div class="member-no">NO. 008</div>
+            <div class="member-name">原田 拓実</div>
+            <div class="member-company">草津市倫理法人会 運営委員</div>
+            <div class="member-vision">
+              <div class="vision-text">AIを自分の、そして家族や友人の困り事を解決するためのツールとして日常的に活用し、まず自らが実践を重ねることで「AIでここまでできる」という実感を積み上げます。その経験を周囲に伝え、実践方法を広められる人となります。</div>
+            </div>
+            <div class="newcomer-date">2026/03/25 宣言</div>
           </div>
         </div>
       </section>
