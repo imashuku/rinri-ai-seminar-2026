@@ -8,133 +8,338 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+JP:wght@400;500;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
     <style>
-      .members-hero {
-        padding: 6rem 0 4rem;
-        background: linear-gradient(135deg, var(--c-primary) 0%, #004488 100%);
-        color: white;
-        text-align: center;
+      :root {
+        --brown: #8b7355;
+        --brown-light: #c4b08a;
+        --navy: #1e3a5f;
+        --beige: #f5f0e8;
+        --beige-warm: #fdfcfa;
+        --text: #333333;
+        --text-light: #777777;
+        --border-warm: #e8e3d8;
+        --f-serif: "Noto Serif JP", "Yu Mincho", serif;
+        --f-sans: "Noto Sans JP", "Inter", -apple-system, sans-serif;
       }
-      .members-hero h1 {
-        font-size: 2.5rem;
-        margin-bottom: 1rem;
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body {
+        font-family: var(--f-sans);
+        background: #ffffff;
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
       }
-      .members-hero p {
-        font-size: 1.1rem;
-        opacity: 0.9;
-        max-width: 600px;
+
+      /* ===== Header ===== */
+      .header {
+        padding: 1rem 2rem;
+      }
+      .header-inner {
+        max-width: 960px;
         margin: 0 auto;
-        line-height: 1.8;
+      }
+      .header-org {
+        font-family: var(--f-serif);
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: var(--text);
+        letter-spacing: 0.05em;
+      }
+
+      /* ===== Hero ===== */
+      .members-hero {
+        background: var(--beige);
+        padding: 4rem 2rem 3.5rem;
+      }
+      .hero-inner {
+        max-width: 960px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+      }
+      .hero-text h1 {
+        font-family: var(--f-serif);
+        font-size: 2.2rem;
+        font-weight: 500;
+        color: var(--navy);
+        margin-bottom: 0.8rem;
+        letter-spacing: 0.1em;
+      }
+      .hero-text p {
+        font-size: 0.95rem;
+        color: var(--text-light);
+        line-height: 2;
+        max-width: 420px;
+      }
+      .hero-count {
+        text-align: right;
+        flex-shrink: 0;
+        margin-left: 2rem;
+      }
+      .hero-count .num {
+        font-family: var(--f-serif);
+        font-size: 3.5rem;
+        font-weight: 700;
+        color: var(--navy);
+        line-height: 1;
+      }
+      .hero-count .label {
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+
+      /* ===== Members Grid ===== */
+      .members-section {
+        max-width: 960px;
+        margin: 0 auto;
+        padding: 3rem 2rem 4rem;
       }
       .members-grid {
         display: grid;
-        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        grid-template-columns: repeat(2, 1fr);
         gap: 2rem;
-        padding: 4rem 0;
       }
       .member-card {
-        background: white;
-        border-radius: 12px;
+        background: var(--beige-warm);
+        border-left: 3px solid var(--brown);
+        border-radius: 4px;
         padding: 2rem;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-        border: 1px solid var(--c-border);
-        position: relative;
-        overflow: hidden;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+      }
+      .member-top {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.2rem;
+      }
+      .member-initial {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-family: var(--f-serif);
+        font-size: 1.3rem;
+        font-weight: 700;
+        color: var(--navy);
+        flex-shrink: 0;
       }
       .member-no {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: var(--c-bg-accent);
-        color: var(--c-primary);
-        font-family: var(--f-en);
-        font-weight: 700;
-        padding: 0.5rem 1rem;
-        border-bottom-left-radius: 12px;
-        font-size: 1.2rem;
+        font-size: 0.72rem;
+        letter-spacing: 0.2em;
+        color: var(--brown);
+        font-weight: 500;
       }
       .member-name {
+        font-family: var(--f-serif);
         font-size: 1.4rem;
         font-weight: 700;
-        color: var(--c-text-main);
-        margin-bottom: 0.25rem;
-        margin-top: 1rem;
+        color: var(--text);
+        line-height: 1.3;
       }
       .member-company {
-        font-size: 0.9rem;
-        color: var(--c-text-light);
-        margin-bottom: 1.5rem;
+        font-size: 0.82rem;
+        color: var(--text-light);
+        margin-top: 0.15rem;
       }
       .member-vision {
-        font-size: 0.95rem;
-        line-height: 1.6;
-        color: var(--c-text-main);
-        padding-top: 1.5rem;
-        border-top: 1px dashed var(--c-border);
+        font-size: 0.9rem;
+        line-height: 1.8;
+        color: #555;
+        padding-top: 1.2rem;
+        border-top: 1px solid var(--border-warm);
       }
       .member-vision::before {
-        content: "私の実践宣言：";
+        content: "実践宣言";
         display: block;
-        font-size: 0.8rem;
-        color: var(--c-primary);
-        font-weight: bold;
-        margin-bottom: 0.5rem;
+        font-size: 0.72rem;
+        font-weight: 700;
+        color: var(--brown);
+        letter-spacing: 0.15em;
+        margin-bottom: 0.4rem;
       }
+
+      /* Placeholder card */
+      .member-card.placeholder {
+        opacity: 0.4;
+        border-left-color: #ccc;
+      }
+
+      /* Initial circle color variations */
+      .initial-a { background: #f5f0e8; }
+      .initial-b { background: #e8eef5; }
+      .initial-c { background: #eef5e8; }
+      .initial-d { background: #f5e8ee; }
+      .initial-e { background: #eee8f5; }
+      .initial-f { background: #f5f2e8; }
+      .initial-g { background: #e8f5f2; }
+      .initial-h { background: #f0ebe5; }
+
+      /* ===== Join Section ===== */
       .join-section {
+        max-width: 960px;
+        margin: 0 auto 4rem;
+        padding: 3rem 2rem;
         text-align: center;
-        padding: 4rem 0;
-        background: var(--c-bg-accent);
-        border-radius: 12px;
-        margin-bottom: 4rem;
+        background: var(--beige);
+        border-radius: 4px;
+      }
+      .join-section h2 {
+        font-family: var(--f-serif);
+        font-size: 1.5rem;
+        font-weight: 500;
+        margin-bottom: 1.5rem;
+        line-height: 1.8;
+        color: var(--text);
+      }
+      .join-section .join-desc {
+        margin-bottom: 2rem;
+        line-height: 1.8;
+        font-size: 0.95rem;
+        color: #555;
+      }
+      .join-section .join-note {
+        font-size: 0.85rem;
+        color: var(--text-light);
+      }
+      .btn-join {
+        display: inline-block;
+        padding: 0.9rem 2.5rem;
+        background: var(--navy);
+        color: #fff;
+        text-decoration: none;
+        font-size: 0.95rem;
+        font-weight: 500;
+        border-radius: 4px;
+        letter-spacing: 0.03em;
+        transition: opacity 0.2s;
+      }
+      .btn-join:hover {
+        opacity: 0.85;
+      }
+
+      /* ===== Footer ===== */
+      .footer {
+        background: #1a1a1a;
+        color: rgba(255, 255, 255, 0.5);
+        text-align: center;
+        padding: 2rem 1.5rem;
+        font-size: 0.8rem;
+      }
+      .footer a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+      .footer a:hover {
+        color: rgba(255, 255, 255, 0.9);
+      }
+      .footer-seminar {
+        display: inline-block;
+        margin-bottom: 1rem;
+        padding: 0.4rem 1.2rem;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        border-radius: 4px;
+        font-size: 0.82rem;
+      }
+      .footer-org {
+        font-family: var(--f-serif);
+        font-size: 0.9rem;
+        color: rgba(255, 255, 255, 0.7);
+        margin-bottom: 0.3rem;
+      }
+      .footer-motto {
+        font-size: 0.78rem;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 1rem;
+      }
+      .footer-copy {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.3);
+      }
+
+      /* ===== Responsive ===== */
+      @media (max-width: 640px) {
+        .members-grid {
+          grid-template-columns: 1fr;
+        }
+        .hero-inner {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 1.5rem;
+        }
+        .hero-count {
+          text-align: left;
+          margin-left: 0;
+        }
+        .hero-text h1 {
+          font-size: 1.8rem;
+        }
+        .join-section {
+          margin-left: 1rem;
+          margin-right: 1rem;
+        }
       }
     </style>
   </head>
   <body>
     <!-- Header -->
     <header class="header">
-      <div class="header-inner container">
-        <div class="logo" style="font-weight: 700; font-size: 1.1rem; color: var(--c-text-main);">
-          滋賀県草津市倫理法人会
-        </div>
-        <nav class="nav">
-          <a href="index.html" class="btn btn-outline" style="padding: 0.5rem 1rem;">セミナー詳細へ戻る</a>
-        </nav>
+      <div class="header-inner">
+        <div class="header-org">滋賀県草津市倫理法人会</div>
       </div>
     </header>
 
     <main>
+      <!-- Hero -->
       <section class="members-hero">
-        <div class="container container-sm">
-          <h1>倫理AI実践士</h1>
-          <p>
-            AIに伴走してもらい初動を作り、泥臭く実践を重ねる。<br>
-            自分を変え、家族を変え、職場を変え、地域を変え、日本を変えていく。<br>
-            共に歩む仲間たちの宣言です。
-          </p>
+        <div class="hero-inner">
+          <div class="hero-text">
+            <h1>倫理AI実践士</h1>
+            <p>
+              AIに伴走してもらい初動を作り、泥臭く実践を重ねる。自分を変え、家族を変え、職場を変え、地域を変え、日本を変えていく。共に歩む仲間たちの宣言です。
+            </p>
+          </div>
+          <div class="hero-count">
+            <div class="num">8</div>
+            <div class="label">名の実践士が登録</div>
+          </div>
         </div>
       </section>
 
-      <section class="container">
+      <!-- Members -->
+      <section class="members-section">
         <div class="members-grid">
+
           <!-- Member 001 -->
           <div class="member-card">
-            <div class="member-no">No. 001</div>
-            <div class="member-name">今宿 裕昭</div>
-            <div class="member-company">ステップアウトマーケティング合同会社</div>
+            <div class="member-top">
+              <div class="member-initial initial-a">今</div>
+              <div>
+                <div class="member-no">NO. 001</div>
+                <div class="member-name">今宿 裕昭</div>
+                <div class="member-company">ステップアウトマーケティング合同会社</div>
+              </div>
+            </div>
             <div class="member-vision">
               AIを「業務の効率化」だけでなく、自らの思考を深め、経営の軸を太くするための壁打ち相手として活用します。地域企業の生産性向上を支援し、AI実装を通じて滋賀から日本を元気にします。
             </div>
           </div>
 
-          <!-- (No. 002 Placeholder) -->
-          <div class="member-card" style="opacity: 0.5; background: #fafafa;">
-            <div class="member-no">No. 002</div>
-            <div class="member-name" style="color: #999;">（登録済み・準備中）</div>
-            <div class="member-company">&nbsp;</div>
+          <!-- No. 002 Placeholder -->
+          <div class="member-card placeholder">
+            <div class="member-top">
+              <div class="member-initial" style="background: #eee;">？</div>
+              <div>
+                <div class="member-no">NO. 002</div>
+                <div class="member-name" style="color: #999;">（登録済み・準備中）</div>
+              </div>
+            </div>
             <div class="member-vision" style="color: #999;">
               現在プロフィール準備中です。
             </div>
@@ -142,9 +347,14 @@
 
           <!-- Member 003 -->
           <div class="member-card">
-            <div class="member-no">No. 003</div>
-            <div class="member-name">中野 充博</div>
-            <div class="member-company">株式会社バーグ企画</div>
+            <div class="member-top">
+              <div class="member-initial initial-b">中</div>
+              <div>
+                <div class="member-no">NO. 003</div>
+                <div class="member-name">中野 充博</div>
+                <div class="member-company">株式会社バーグ企画</div>
+              </div>
+            </div>
             <div class="member-vision">
               現場主義で企業内部に入り込み、AIを活用したDXを推進します。ただのツール導入で終わらせず、人の「あり方」を土台としたAIの定着に取り組み、地域から日本創生を実現する実践者であり続けます。
             </div>
@@ -152,9 +362,14 @@
 
           <!-- Member 004 -->
           <div class="member-card">
-            <div class="member-no">No. 004</div>
-            <div class="member-name">山田 由美子</div>
-            <div class="member-company">草津市倫理法人会 幹事</div>
+            <div class="member-top">
+              <div class="member-initial initial-c">山</div>
+              <div>
+                <div class="member-no">NO. 004</div>
+                <div class="member-name">山田 由美子</div>
+                <div class="member-company">草津市倫理法人会 幹事</div>
+              </div>
+            </div>
             <div class="member-vision">
               AIを使って日々の業務を効率化し、生まれた時間を人との関わりや自己成長に充てます。仕事だけでなくプライベートでも積極的に活用し、暮らし全体を豊かにする実践者を目指します。
             </div>
@@ -162,9 +377,14 @@
 
           <!-- Member 005 -->
           <div class="member-card">
-            <div class="member-no">No. 005</div>
-            <div class="member-name">森 宜裕</div>
-            <div class="member-company">一般社団法人BeeTanz 代表理事</div>
+            <div class="member-top">
+              <div class="member-initial initial-d">森</div>
+              <div>
+                <div class="member-no">NO. 005</div>
+                <div class="member-name">森 宜裕</div>
+                <div class="member-company">一般社団法人BeeTanz 代表理事</div>
+              </div>
+            </div>
             <div class="member-vision">
               AIを単なる効率化の道具ではなく、思考を整理し判断力を高めるための"相棒"として活用します。日々の意思決定にAIとの対話を取り入れ、経営者としての内省と行動の質を高め続けます。
             </div>
@@ -172,9 +392,14 @@
 
           <!-- Member 006 -->
           <div class="member-card">
-            <div class="member-no">No. 006</div>
-            <div class="member-name">伊藤 あきら</div>
-            <div class="member-company">一般社団法人シンクロプラス</div>
+            <div class="member-top">
+              <div class="member-initial initial-e">伊</div>
+              <div>
+                <div class="member-no">NO. 006</div>
+                <div class="member-name">伊藤 あきら</div>
+                <div class="member-company">一般社団法人シンクロプラス</div>
+              </div>
+            </div>
             <div class="member-vision">
               地域の課題解決活動にAIの知見を積極的に取り入れ、これまで時間や人手が足りず手が届かなかった領域にも踏み込みます。テクノロジーの力で社会をもう一歩前に進める実践を重ねます。
             </div>
@@ -182,9 +407,14 @@
 
           <!-- Member 007 -->
           <div class="member-card">
-            <div class="member-no">No. 007</div>
-            <div class="member-name">世古 誠</div>
-            <div class="member-company">株式会社ミライの営業</div>
+            <div class="member-top">
+              <div class="member-initial initial-f">世</div>
+              <div>
+                <div class="member-no">NO. 007</div>
+                <div class="member-name">世古 誠</div>
+                <div class="member-company">株式会社ミライの営業</div>
+              </div>
+            </div>
             <div class="member-vision">
               コンサルタントや講師が自らの専門性をAIで拡張できるよう、実践的な方法論を体系化して届けます。一人ひとりの「伝える力」がAIで増幅される仕組みをつくり、実践の輪を全国に広げます。
             </div>
@@ -192,9 +422,14 @@
 
           <!-- Member 008 -->
           <div class="member-card">
-            <div class="member-no">No. 008</div>
-            <div class="member-name">原田 拓実</div>
-            <div class="member-company">草津市倫理法人会 運営委員</div>
+            <div class="member-top">
+              <div class="member-initial initial-g">原</div>
+              <div>
+                <div class="member-no">NO. 008</div>
+                <div class="member-name">原田 拓実</div>
+                <div class="member-company">草津市倫理法人会 運営委員</div>
+              </div>
+            </div>
             <div class="member-vision">
               AIを自分の、そして家族や友人の困り事を解決するためのツールとして日常的に活用し、まず自らが実践を重ねることで「AIでここまでできる」という実感を積み上げます。その経験を周囲に伝え、実践方法を広められる人となります。
             </div>
@@ -202,17 +437,14 @@
 
         </div>
 
-        <div class="join-section">
-          <h2 class="section-title" style="font-size: 1.8rem; margin-bottom: 1.5rem; line-height: 1.4;">さあ、次はあなたが「実践士」として<br>名乗りを上げる番です。</h2>
-          <p style="margin-bottom: 2.5rem; line-height: 1.8; font-size: 1.05rem;">
-            特別なスキルや資格試験は一切必要ありません。<br>
-            「AIを武器に、自分と周りを変えていく」という<strong>熱い決意</strong>。<br>
-            あなたがその手で「実践する」と宣言した瞬間から、<br>
-            あなたは私たちの仲間であり、誇り高き<strong>「倫理AI実践士」</strong>です。<br>
-            <br>
-            <span style="font-size: 0.9rem; color: var(--c-text-light);">※ 会員ナンバー（No.）は、名乗りを上げた順番での発行となります。</span>
+        <!-- Join Section -->
+        <div class="join-section" style="margin-top: 3rem;">
+          <h2>さあ、次はあなたが「実践士」として<br>名乗りを上げる番です。</h2>
+          <p class="join-desc">
+            特別なスキルや資格試験は一切必要ありません。「AIを武器に、自分と周りを変えていく」という<strong>熱い決意</strong>。あなたがその手で「実践する」と宣言した瞬間から、あなたは私たちの仲間であり、誇り高き<strong>「倫理AI実践士」</strong>です。
           </p>
-          <a href="https://forms.gle/C171SuVwd1KPjqYMA" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 3rem;">
+          <p class="join-note" style="margin-bottom: 2rem;">※ 会員ナンバー（No.）は、名乗りを上げた順番での発行となります。</p>
+          <a href="https://forms.gle/C171SuVwd1KPjqYMA" target="_blank" rel="noopener noreferrer" class="btn-join">
             倫理AI実践士として名乗りを上げる（登録フォームへ）
           </a>
         </div>
@@ -221,15 +453,10 @@
 
     <!-- Footer -->
     <footer class="footer">
-      <div class="container container-sm">
-        <div class="footer-content">
-          <div class="footer-info">
-            <p class="footer-org">滋賀県草津市倫理法人会</p>
-            <p class="footer-desc">「企業に倫理を、職場に心を、家庭に愛を」</p>
-          </div>
-        </div>
-        <p class="copyright">&copy; 2026 ステップアウトマーケティング合同会社 All Rights Reserved.</p>
-      </div>
+      <a href="index.html" class="footer-seminar">セミナー詳細へ戻る</a><br>
+      <p class="footer-org">滋賀県草津市倫理法人会</p>
+      <p class="footer-motto">「企業に倫理を、職場に心を、家庭に愛を」</p>
+      <p class="footer-copy">&copy; 2026 ステップアウトマーケティング合同会社 All Rights Reserved.</p>
     </footer>
   </body>
 </html>
