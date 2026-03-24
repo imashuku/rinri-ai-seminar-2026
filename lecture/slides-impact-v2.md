@@ -504,7 +504,7 @@ style: |
 # アンケートにご協力ください
 
 <div style="display:flex; align-items:center; justify-content:center; gap:48px; margin-top:24px;">
-<img src="../survey-qr.png" alt="アンケートQRコード" style="width:280px; height:280px; border-radius:12px; background:#fff; padding:12px;">
+<img src="survey-qr.png" alt="アンケートQRコード" style="width:280px; height:280px; border-radius:12px; background:#fff; padding:12px;">
 <div style="text-align:left;">
 <p style="font-size:24px; color:#475569; margin-bottom:12px;">スマートフォンで<br>QRコードを読み取ってください</p>
 <p style="font-size:18px; color:#6b7280;">所要時間：約2分</p>
